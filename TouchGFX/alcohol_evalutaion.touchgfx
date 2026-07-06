@@ -1,0 +1,282 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Name": "Screen1",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "Width": 272,
+            "Height": 480,
+            "RelativeFilename": "__generated\\clay_theme_images_backgrounds_272x480_lines.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "CardID",
+            "X": 13,
+            "Y": 15,
+            "Width": 209,
+            "Height": 25,
+            "TextId": "__SingleUse_3ZDV",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_XX4S"
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "RawAlcohol",
+            "X": 13,
+            "Y": 148,
+            "Width": 209,
+            "Height": 25,
+            "TextId": "__SingleUse_1P7M",
+            "TextRotation": "0"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ConvertedAlcohol",
+            "X": 13,
+            "Y": 216,
+            "Width": 209,
+            "Height": 25,
+            "TextId": "__SingleUse_10T5",
+            "TextRotation": "0"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "RawAlcoholText",
+            "X": 13,
+            "Y": 181,
+            "Width": 209,
+            "Height": 25,
+            "TextId": "__SingleUse_JOOB",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_K2F9"
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "ConvertedAlcoholText",
+            "X": 13,
+            "Y": 252,
+            "Width": 209,
+            "Height": 25,
+            "TextId": "__SingleUse_QQ29",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_95U5"
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "FullNameDis",
+            "X": 13,
+            "Y": 50,
+            "Width": 209,
+            "Height": 25,
+            "TextId": "__SingleUse_F9U5",
+            "TextRotation": "0"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "FullNameText",
+            "X": 13,
+            "Y": 83,
+            "Width": 209,
+            "Height": 25,
+            "TextId": "__SingleUse_D9M0",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_DS5P"
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Time",
+            "X": 13,
+            "Y": 116,
+            "Width": 209,
+            "Height": 25,
+            "TextId": "__SingleUse_DIJZ",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_JXT6"
+            }
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Screen2",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "image1",
+            "Y": -114,
+            "Width": 272,
+            "Height": 480,
+            "RelativeFilename": "__generated\\clay_theme_images_backgrounds_272x480_meteor_rain.png"
+          },
+          {
+            "Type": "ScrollableContainer",
+            "Name": "scrollableContainer1",
+            "Y": 1,
+            "Width": 240,
+            "Height": 319,
+            "HorizontalScrollEnabled": true,
+            "VerticalScrollEnabled": true,
+            "ScrollbarsVisibleOnPressed": true,
+            "ScrollbarsAlpha": 255,
+            "Components": []
+          },
+          {
+            "Type": "ScrollList",
+            "Name": "scrollList1",
+            "Width": 240,
+            "Height": 320,
+            "ItemTemplateName": "CustomContainer1",
+            "NumberofItems": 3,
+            "Easing": "Back",
+            "EasingOption": "Out",
+            "SwipeAcceleration": 1.0,
+            "DragAcceleration": 1.0,
+            "OverShootPercentage": 75
+          }
+        ],
+        "Interactions": []
+      }
+    ],
+    "CustomContainerDefinitions": [
+      {
+        "Name": "CustomContainer1",
+        "Width": 240,
+        "Height": 103,
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "cardid",
+            "X": 9,
+            "Y": 7,
+            "Width": 222,
+            "Height": 15,
+            "TextId": "__SingleUse_S3YI",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_KVAU"
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "fullname",
+            "X": 9,
+            "Y": 28,
+            "Width": 222,
+            "Height": 15,
+            "TextId": "__SingleUse_Z6P0",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_TOBC"
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "fullname_1",
+            "X": 9,
+            "Y": 50,
+            "Width": 91,
+            "Height": 15,
+            "TextId": "__SingleUse_LWV7",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_E0VX"
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alcolhollv",
+            "X": 9,
+            "Y": 72,
+            "Width": 222,
+            "Height": 27,
+            "TextId": "__SingleUse_N5WT",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_DP9M"
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "endline",
+            "X": 9,
+            "Y": 85,
+            "Width": 222,
+            "Height": 18,
+            "TextId": "__SingleUse_IA58",
+            "TextRotation": "0"
+          }
+        ],
+        "Interactions": []
+      }
+    ],
+    "Name": "STM32F429I_DISCO_REV_D01",
+    "Resolution": {
+      "Width": 240,
+      "Height": 320
+    },
+    "SelectedColorDepth": 16,
+    "StartupScreenName": "Screen1",
+    "SelectedStartupLanguage": "GB",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "AvailableColorDepths": [
+      16
+    ],
+    "AvailableLCDs": {
+      "16": "LCD16bpp"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 240,
+        "Height": 320
+      }
+    ],
+    "PhysicalButtons": [],
+    "FrameworkFeatures": {
+      "LCD16bpp": {
+        "Id": "LCD16bpp",
+        "IsEnabled": true
+      }
+    },
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommandOverride": "make -f ../gcc/Makefile -j8",
+    "FlashTargetCommandOverride": "make -f ../gcc/Makefile flash",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Portrait",
+    "Family": "STM32F4",
+    "SubFamily": "STM32F429/439",
+    "Toolchain": "STM32CubeIDE",
+    "Platform": "m4",
+    "ProjectFile": "../STM32F429I_DISCO_REV_D01.ioc",
+    "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
+    "OptionalComponents": [],
+    "AdditionalFeatures": [
+      "CWRVector",
+      "VectorFonts"
+    ]
+  },
+  "Version": "4.26.1"
+}

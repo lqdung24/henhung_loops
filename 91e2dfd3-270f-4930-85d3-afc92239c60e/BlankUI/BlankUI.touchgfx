@@ -1,0 +1,65 @@
+﻿{
+  "Application": {
+    "Screens": [
+      {
+        "Components": [],
+        "Interactions": [],
+        "Name": "Screen1"
+      }
+    ],
+    "CustomContainerDefinitions": [],
+    "Name": "BlankUI",
+    "Resolution" : {
+      "Width": 800,
+      "Height": 480
+    },
+    "UIPath" : ".",
+    "SelectedColorDepth" : 16,
+    "StartupScreenName": "Screen1",
+    "SelectedStartupLanguage": "GB",
+    "Skin": "Blue",
+    "TouchGfxPath": "touchgfx",
+    "ApplicationTemplate" : {
+      "Name"        : "Blank_UI",
+      "VendorName"  : "STMicroelectronics",
+      "Version"     : "2.0.0",
+      "Description" : "",
+      "AvailableColorDepths" : [ 1, 2, 4, 8, 16, 24 ],
+      "AvailableImageFormats": {
+        "1": {
+          "opaque": "BW_RLE",
+          "nonopaque": "BW_RLE"
+        },
+        "2": {
+          "opaque": "GRAY2",
+          "nonopaque": "GRAY2"
+        },
+        "4": {
+          "opaque": "GRAY4",
+          "nonopaque": "GRAY4"
+        },
+        "8": {
+          "opaque": "ARGB2222",
+          "nonopaque": "ARGB2222"
+        },
+        "16": {
+          "opaque": "RGB565",
+          "nonopaque": "ARGB8888"
+        },
+        "24": {
+          "opaque": "RGB888",
+          "nonopaque": "ARGB8888"
+        }
+      },
+      "AvailableResolutions" : [],
+      "PhysicalButtons"      : [],
+      "GenerateAssetsCommand": "",
+      "PostGenerateCommand": "",
+      "CompileSimulatorCommand": "",
+      "RunSimulatorCommand": "",
+      "CompileTargetCommand": "",
+      "FlashTargetCommand": ""
+    }
+  },
+  "Version": "4.11.0"
+}
