@@ -27,6 +27,9 @@ public:
 
     virtual ~Screen1Presenter() {}
 
+
+    virtual void requestChangeToHistory() override;
+
 private:
     Screen1Presenter();
 

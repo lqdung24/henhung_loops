@@ -27,6 +27,8 @@ public:
 
     virtual ~Screen2Presenter() {}
 
+    virtual void requestChangeToMain() override;
+
 private:
     Screen2Presenter();
 
