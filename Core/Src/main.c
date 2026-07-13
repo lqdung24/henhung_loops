@@ -33,15 +33,14 @@
 #include "math.h"
 #include "callback.h"
 #include "maintask.h"
+#include "flash.h"
+#include "app_config.h"
+#include "mq3.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-#define VC_VOLTAGE       5.0f   // Điện áp nguồn cấp cho MQ-3 (V)
-#define RL_RESISTANCE    1.0f  // Trở tải trên module thực tế (kOhms) - Thay đổi theo board của bạn
-#define RO_CLEAN_AIR     3.12f  // Giá trị Ro của riêng cảm biến của bạn (kOhms)
-#define ADC_BUF_LEN      2
-#define HALF_BUF_LEN     (ADC_BUF_LEN / 2)
+
 
 /* USER CODE END PTD */
 
@@ -109,6 +108,20 @@ const osThreadAttr_t GUI_Task_attributes = {
   .stack_size = 8192 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* Definitions for mySensorTask */
+osThreadId_t mySensorTaskHandle;
+const osThreadAttr_t mySensorTask_attributes = {
+  .name = "mySensorTask",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for mq3Task */
+osThreadId_t mq3TaskHandle;
+const osThreadAttr_t mq3Task_attributes = {
+  .name = "mq3Task",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* Definitions for adcDataQueueHandle */
 osMessageQueueId_t adcDataQueueHandleHandle;
 const osMessageQueueAttr_t adcDataQueueHandle_attributes = {
@@ -123,6 +136,21 @@ const osMessageQueueAttr_t btnEventQueue_attributes = {
 osMessageQueueId_t guiCommandQueueHandle;
 const osMessageQueueAttr_t guiCommandQueue_attributes = {
   .name = "guiCommandQueue"
+};
+/* Definitions for rfidDataQueue */
+osMessageQueueId_t rfidDataQueueHandle;
+const osMessageQueueAttr_t rfidDataQueue_attributes = {
+  .name = "rfidDataQueue"
+};
+/* Definitions for mq3Queue */
+osMessageQueueId_t mq3QueueHandle;
+const osMessageQueueAttr_t mq3Queue_attributes = {
+  .name = "mq3Queue"
+};
+/* Definitions for mq3Res */
+osMessageQueueId_t mq3ResHandle;
+const osMessageQueueAttr_t mq3Res_attributes = {
+  .name = "mq3Res"
 };
 /* USER CODE BEGIN PV */
 uint8_t isRevD = 0; /* Applicable only for STM32F429I DISCOVERY REVD and above */
@@ -145,6 +173,8 @@ static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
 void StartDefaultTask(void *argument);
 extern void TouchGFX_Task(void *argument);
+void SensorTask(void *argument);
+void StartMQ3Task(void *argument);
 
 /* USER CODE BEGIN PFP */
 static void BSP_SDRAM_Initialization_Sequence(SDRAM_HandleTypeDef *hsdram, FMC_SDRAM_CommandTypeDef *Command);
@@ -183,158 +213,11 @@ static LCD_DrvTypeDef* LcdDrv;
 
 uint32_t I2c3Timeout = I2C3_TIMEOUT_MAX; /*<! Value of Timeout when I2C communication fails */
 uint32_t Spi5Timeout = SPI5_TIMEOUT_MAX; /*<! Value of Timeout when SPI communication fails */
-char buff[30];
-
-enum {
-    CMD_NONE = 0,
-    CMD_GOTO_HISTORY,
-    CMD_GOTO_MAIN,
-    CMD_START_MEASURE_OK,
-    CMD_WARN_ALCOHOL_HIGH
-};
-
-void TestDS1307(void)
-{
-    Time set_time =
-    {
-        .sec = 10,
-        .min = 21,
-        .hour = 0,
-        .weekday = 8,
-        .day = 5,
-        .month = 7,
-        .year = 26
-    };
-
-    Time get_time;
-
-    SetTime(&hi2c3, &set_time);
-
-    while (1)
-    {
-        if (GetTime(&hi2c3, &get_time) == HAL_OK)
-        {
-            sprintf(buff,
-                    "%02d:%02d:%02d-%02d-%02d/%02d/%02d\r\n",
-                    get_time.hour,
-                    get_time.min,
-                    get_time.sec,
-                    get_time.weekday,
-                    get_time.day,
-                    get_time.month,
-                    get_time.year);
-
-            HAL_UART_Transmit(&huart1,
-                              (uint8_t *)buff,
-                              strlen(buff),
-                              HAL_MAX_DELAY);
-        }else{
-        	sprintf(buff, "error\r\n");
-        	HAL_UART_Transmit(&huart1,
-							  (uint8_t *)buff,
-							  strlen(buff),
-							  HAL_MAX_DELAY);
-        }
-
-        HAL_Delay(1000);
-    }
-}
-
-void TestRc522(void){
-  char buff[64];
-
-  while (1)
-  {
-	  uint8_t CardID[5];
-	  if(TM_MFRC522_Check(CardID) == MI_OK){
-		  int len = sprintf(buff,
-							"UID: %02X %02X %02X %02X %02X\r\n",
-							CardID[0],
-							CardID[1],
-							CardID[2],
-							CardID[3],
-							CardID[4]);
-
-		  HAL_UART_Transmit(&huart1,
-							(uint8_t*)buff,
-							len,
-							HAL_MAX_DELAY);
-	  }
-	  else{
-		  int len = sprintf(buff, "not found\r\n");
-
-		  HAL_UART_Transmit(&huart1,
-							(uint8_t*)buff,
-							len,
-							HAL_MAX_DELAY);
-	  }
-	  HAL_Delay(1000);
-  }
-
-}
-
+extern char buff[64];
 
 uint16_t ADC_Buffer[ADC_BUF_LEN];
-float alcohol_concentration = 0.0f; // Nồng độ cồn cuối cùng (mg/L)
-
-float MQ3_Calculate_mgL(uint32_t raw_adc) {
-    float v_out = ((float)raw_adc / 4095.0f) * 3.3f;
-
-    if (v_out >= VC_VOLTAGE || v_out <= 0.01f) return 0.0f;
-
-    float r_s = RL_RESISTANCE * ((VC_VOLTAGE - v_out) / v_out);
-
-    float ratio = r_s / RO_CLEAN_AIR;
-
-    float mg_L = pow((ratio / 0.5f), -1.468f);
-
-    return mg_L;
-}
-
-void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* hadc){
-	if (hadc->Instance == ADC1) {
-//		HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
-
-//		uint64_t sum = 0;
-//		for (int i = 0; i < HALF_BUF_LEN; i++) {
-//			sum += ADC_Buffer[i];
-//		}
-//		uint32_t avg_adc = sum / HALF_BUF_LEN;
-//
-//		sprintf(buff, "%lu\r\n", avg_adc);
-//		HAL_UART_Transmit(&huart1,
-//						  (uint8_t *)buff,
-//						  strlen(buff),
-//						  HAL_MAX_DELAY);
-
-	}
-	else {
-		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_SET);
-	}
-}
-
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
-	if (hadc->Instance == ADC1) {
-//		HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_14);
-//		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
-//
-//		uint64_t sum = 0;
-//		for (int i = 0; i < ADC_BUF_LEN; i++) {
-//			sum += ADC_Buffer[i];
-//		}
-//		uint32_t avg_adc = sum / ADC_BUF_LEN;
-//
-//		sprintf(buff, "%lu\r\n", avg_adc);
-//		HAL_UART_Transmit(&huart1,
-//						  (uint8_t *)buff,
-//						  strlen(buff),
-//						  HAL_MAX_DELAY);
-
-	}
-	else {
-		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_SET);
-	}
-}
+Log_t app_log[LOG_LEN];
+int log_counter = 0;
 /* USER CODE END 0 */
 
 /**
@@ -381,10 +264,6 @@ int main(void)
   /* Call PreOsInit function */
   MX_TouchGFX_PreOSInit();
   /* USER CODE BEGIN 2 */
-//  RC522_Init(&hrc522,
-//             &hspi5,
-//             GPIOF,
-//             GPIO_PIN_6);
 
   TM_MFRC522_Init();
 
@@ -413,13 +292,22 @@ int main(void)
   btnEventQueueHandle = osMessageQueueNew (16, sizeof(uint8_t), &btnEventQueue_attributes);
 
   /* creation of guiCommandQueue */
-  guiCommandQueueHandle = osMessageQueueNew (4, sizeof(uint8_t), &guiCommandQueue_attributes);
+  guiCommandQueueHandle = osMessageQueueNew (4, sizeof(UI_cmd_t), &guiCommandQueue_attributes);
+
+  /* creation of rfidDataQueue */
+  rfidDataQueueHandle = osMessageQueueNew (1, sizeof(RFID_Packet_t), &rfidDataQueue_attributes);
+
+  /* creation of mq3Queue */
+  mq3QueueHandle = osMessageQueueNew (2, sizeof(uint16_t), &mq3Queue_attributes);
+
+  /* creation of mq3Res */
+  mq3ResHandle = osMessageQueueNew (1, sizeof(MQ3_result_t), &mq3Res_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
-  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)ADC_Buffer, ADC_BUF_LEN);
-  HAL_TIM_Base_Start(&htim2);
+//  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)ADC_Buffer, ADC_BUF_LEN);
+//  HAL_TIM_Base_Start(&htim2);
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -429,15 +317,23 @@ int main(void)
   /* creation of GUI_Task */
   GUI_TaskHandle = osThreadNew(TouchGFX_Task, NULL, &GUI_Task_attributes);
 
+  /* creation of mySensorTask */
+  mySensorTaskHandle = osThreadNew(SensorTask, NULL, &mySensorTask_attributes);
+
+  /* creation of mq3Task */
+  mq3TaskHandle = osThreadNew(StartMQ3Task, NULL, &mq3Task_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
   /* add events, ... */
-//  TestDS1307();
-//  TestRc522();
-  sensorTaskHandle = osThreadNew(StartSensorTask, NULL, &sensorTask_attributes);
+//  RTC_SetTime(26, 7, 11, 7, 16, 46, 0, &hi2c3);
+  DB_InitTest();
+  DB_Load();
+  DB_Print();
+  //sensorTaskHandle = osThreadNew(StartSensorTask, NULL, &sensorTask_attributes);
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
@@ -532,10 +428,10 @@ static void MX_ADC1_Init(void)
   hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
   hadc1.Init.Resolution = ADC_RESOLUTION_12B;
   hadc1.Init.ScanConvMode = DISABLE;
-  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.ContinuousConvMode = ENABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
-  hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_RISING;
-  hadc1.Init.ExternalTrigConv = ADC_EXTERNALTRIGCONV_T2_TRGO;
+  hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.NbrOfConversion = 1;
   hadc1.Init.DMAContinuousRequests = ENABLE;
@@ -852,9 +748,9 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 8999;
+  htim3.Init.Prescaler = 17999;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 29999;
+  htim3.Init.Period = 49999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
@@ -1415,6 +1311,36 @@ void StartDefaultTask(void *argument)
     osDelay(100);
   }
   /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_SensorTask */
+/**
+* @brief Function implementing the mySensorTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_SensorTask */
+void SensorTask(void *argument)
+{
+  /* USER CODE BEGIN SensorTask */
+  /* Infinite loop */
+	StartSensorTask();
+  /* USER CODE END SensorTask */
+}
+
+/* USER CODE BEGIN Header_StartMQ3Task */
+/**
+* @brief Function implementing the mq3Task thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartMQ3Task */
+void StartMQ3Task(void *argument)
+{
+  /* USER CODE BEGIN StartMQ3Task */
+  /* Infinite loop */
+	MQ3_Task();
+  /* USER CODE END StartMQ3Task */
 }
 
 /**

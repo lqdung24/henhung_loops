@@ -29,10 +29,14 @@ public:
 
     virtual void requestChangeToMain() override;
 
+    const Log_t* getLogs() const;
+    uint8_t getLogCount() const;
+
 private:
     Screen2Presenter();
 
     Screen2View& view;
+
 };
 
 #endif // SCREEN2PRESENTER_HPP

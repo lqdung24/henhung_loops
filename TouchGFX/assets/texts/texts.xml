@@ -6,6 +6,45 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_GFHB" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Scan your RFID card</Translation>
+      </Text>
+      <Text Id="__SingleUse_NNC1" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">---</Translation>
+      </Text>
+      <Text Id="__SingleUse_6U4G" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_CGAZ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0 </Translation>
+      </Text>
+      <Text Id="__SingleUse_N1RC" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_1BBR" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Warm up sensor</Translation>
+      </Text>
+      <Text Id="__SingleUse_5EQT" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">0 </Translation>
+      </Text>
+      <Text Id="__SingleUse_EBH2" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_YQCE" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Blow</Translation>
+      </Text>
+      <Text Id="__SingleUse_0NG8" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">PLease Wait before testing</Translation>
+      </Text>
+      <Text Id="__SingleUse_10D7" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Alcohol level too high</Translation>
+      </Text>
+      <Text Id="inital" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">----</Translation>
+      </Text>
+      <Text Id="__SingleUse_5VXV" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Converted Alcohol:</Translation>
+      </Text>
       <Text Id="__SingleUse_JXT6" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">---</Translation>
       </Text>
@@ -16,7 +55,7 @@
         <Translation Language="GB">---</Translation>
       </Text>
       <Text Id="__SingleUse_N5WT" Alignment="Left" TypographyId="Small">
-        <Translation Language="GB">Alcohol Level: &lt;value&gt; (ml/100ml)</Translation>
+        <Translation Language="GB">Alcohol Level: &lt;value&gt; (mg/100ml)</Translation>
       </Text>
       <Text Id="__SingleUse_E0VX" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">---</Translation>
@@ -36,7 +75,7 @@
       <Text Id="__SingleUse_S3YI" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">CardID: &lt;value&gt;</Translation>
       </Text>
-      <Text Id="__SingleUse_XX4S" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_XX4S" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">---</Translation>
       </Text>
       <Text Id="__SingleUse_95U5" Alignment="Left" TypographyId="Default">
@@ -45,8 +84,8 @@
       <Text Id="__SingleUse_QQ29" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="__SingleUse_10T5" Alignment="Left" TypographyId="Default">
-        <Translation Language="GB">Converted Alcohol:</Translation>
+      <Text Id="__SingleUse_10T5" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">Fine: &lt;value&gt;</Translation>
       </Text>
       <Text Id="__SingleUse_DS5P" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">---</Translation>
@@ -60,23 +99,23 @@
       <Text Id="__SingleUse_D9M0" Alignment="Left" TypographyId="Default">
         <Translation Language="GB">&lt;value&gt;</Translation>
       </Text>
-      <Text Id="__SingleUse_3ZDV" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_3ZDV" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">CardID: &lt;value&gt;</Translation>
       </Text>
-      <Text Id="__SingleUse_DIJZ" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_DIJZ" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">Time: &lt;value&gt;</Translation>
       </Text>
-      <Text Id="__SingleUse_1P7M" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_1P7M" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">Raw Alcohol:</Translation>
       </Text>
-      <Text Id="__SingleUse_F9U5" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_F9U5" Alignment="Left" TypographyId="Small">
         <Translation Language="GB">Full Name: </Translation>
       </Text>
     </TextGroup>
   </Texts>
   <Typographies>
-    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Small" Font="leelauib.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=".0123456789:/qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM{}[]" />
+    <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=".0123456789:/qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM{}[]" />
+    <Typography Id="Small" Font="leelauib.ttf" Size="15" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters=".0123456789:/qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM{}[]" />
   </Typographies>
 </TextDatabase>
