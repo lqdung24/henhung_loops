@@ -13,6 +13,16 @@
           },
           {
             "Type": "TextArea",
+            "Name": "ConvertedAlcohol_1",
+            "X": 13,
+            "Y": 227,
+            "Width": 209,
+            "Height": 25,
+            "TextId": "__SingleUse_5VXV",
+            "TextRotation": "0"
+          },
+          {
+            "Type": "TextArea",
             "Name": "CardID",
             "X": 13,
             "Y": 15,
@@ -21,14 +31,16 @@
             "TextId": "__SingleUse_3ZDV",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "__SingleUse_XX4S"
+              "TextId": "__SingleUse_XX4S",
+              "UseBuffer": true,
+              "BufferSize": 15
             }
           },
           {
             "Type": "TextArea",
             "Name": "RawAlcohol",
             "X": 13,
-            "Y": 148,
+            "Y": 177,
             "Width": 209,
             "Height": 25,
             "TextId": "__SingleUse_1P7M",
@@ -36,25 +48,32 @@
           },
           {
             "Type": "TextArea",
-            "Name": "ConvertedAlcohol",
+            "Name": "Fine",
             "X": 13,
-            "Y": 216,
+            "Y": 286,
             "Width": 209,
             "Height": 25,
             "TextId": "__SingleUse_10T5",
-            "TextRotation": "0"
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "inital",
+              "UseBuffer": true,
+              "BufferSize": 15
+            }
           },
           {
             "Type": "TextArea",
             "Name": "RawAlcoholText",
             "X": 13,
-            "Y": 181,
+            "Y": 202,
             "Width": 209,
             "Height": 25,
             "TextId": "__SingleUse_JOOB",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "__SingleUse_K2F9"
+              "TextId": "__SingleUse_K2F9",
+              "UseBuffer": true,
+              "BufferSize": 10
             }
           },
           {
@@ -67,7 +86,9 @@
             "TextId": "__SingleUse_QQ29",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "__SingleUse_95U5"
+              "TextId": "__SingleUse_95U5",
+              "UseBuffer": true,
+              "BufferSize": 20
             }
           },
           {
@@ -90,7 +111,24 @@
             "TextId": "__SingleUse_D9M0",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "__SingleUse_DS5P"
+              "TextId": "__SingleUse_DS5P",
+              "UseBuffer": true,
+              "BufferSize": 25
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "TimeText",
+            "X": 13,
+            "Y": 141,
+            "Width": 209,
+            "Height": 25,
+            "TextId": "__SingleUse_6U4G",
+            "TextRotation": "0",
+            "Wildcard1": {
+              "TextId": "__SingleUse_NNC1",
+              "UseBuffer": true,
+              "BufferSize": 25
             }
           },
           {
@@ -103,11 +141,231 @@
             "TextId": "__SingleUse_DIJZ",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "__SingleUse_JXT6"
+              "TextId": "__SingleUse_JXT6",
+              "UseBuffer": true,
+              "BufferSize": 25
+            }
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "flexButton1",
+            "X": 197,
+            "Y": 277,
+            "Width": 31,
+            "Height": 34,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 31,
+                "Height": 34,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "backgound_btn",
+            "X": 13,
+            "Y": 178,
+            "Width": 209,
+            "Height": 108,
+            "Visible": false,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 209,
+                "Height": 108,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alcohol_lv_high_text1",
+            "X": 26,
+            "Y": 202,
+            "Width": 152,
+            "Height": 19,
+            "Visible": false,
+            "TextId": "__SingleUse_10D7",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 247,
+              "Green": 245,
+              "Blue": 245
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Blow_text",
+            "X": 94,
+            "Y": 202,
+            "Width": 47,
+            "Height": 24,
+            "Visible": false,
+            "TextId": "__SingleUse_YQCE",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 247,
+              "Green": 245,
+              "Blue": 245
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Warm_up_text",
+            "X": 38,
+            "Y": 199,
+            "Width": 164,
+            "Height": 24,
+            "Visible": false,
+            "TextId": "__SingleUse_1BBR",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 247,
+              "Green": 245,
+              "Blue": 245
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alcohol_lv_high_text2",
+            "X": 26,
+            "Y": 243,
+            "Width": 188,
+            "Height": 19,
+            "Visible": false,
+            "TextId": "__SingleUse_0NG8",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 247,
+              "Green": 245,
+              "Blue": 245
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "scan_card",
+            "X": 47,
+            "Y": 208,
+            "Width": 140,
+            "Height": 19,
+            "Visible": false,
+            "TextId": "__SingleUse_GFHB",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 247,
+              "Green": 245,
+              "Blue": 245
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "blow_sec",
+            "X": 107,
+            "Y": 239,
+            "Width": 20,
+            "Height": 24,
+            "Visible": false,
+            "TextId": "__SingleUse_EBH2",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 247,
+              "Green": 245,
+              "Blue": 245
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_5EQT",
+              "UseBuffer": true,
+              "BufferSize": 15
+            }
+          },
+          {
+            "Type": "TextArea",
+            "Name": "warm_up_time",
+            "X": 107,
+            "Y": 238,
+            "Width": 20,
+            "Height": 24,
+            "Visible": false,
+            "TextId": "__SingleUse_N1RC",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 247,
+              "Green": 245,
+              "Blue": 245
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_CGAZ",
+              "UseBuffer": true,
+              "BufferSize": 15
             }
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen2"
+            }
+          }
+        ]
       },
       {
         "Name": "Screen2",
@@ -144,9 +402,59 @@
             "SwipeAcceleration": 1.0,
             "DragAcceleration": 1.0,
             "OverShootPercentage": 75
+          },
+          {
+            "Type": "FlexButton",
+            "Name": "flexButton1",
+            "X": 202,
+            "Y": 8,
+            "Width": 26,
+            "Height": 28,
+            "ButtonTrigger": {
+              "Type": "ClickButtonTrigger"
+            },
+            "ButtonStyles": [
+              {
+                "Type": "BoxWithBorderButtonStyle",
+                "Width": 26,
+                "Height": 28,
+                "LockToFlexButtonSize": true,
+                "BorderSize": 5,
+                "ColorReleased": {
+                  "Green": 102,
+                  "Blue": 153
+                },
+                "ColorPressed": {
+                  "Green": 153,
+                  "Blue": 204
+                },
+                "ColorBorderReleased": {
+                  "Green": 51,
+                  "Blue": 102
+                },
+                "ColorBorderPressed": {
+                  "Red": 51,
+                  "Green": 102,
+                  "Blue": 153
+                }
+              }
+            ]
           }
         ],
-        "Interactions": []
+        "Interactions": [
+          {
+            "InteractionName": "Interaction1",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "flexButton1"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "Screen1"
+            }
+          }
+        ]
       }
     ],
     "CustomContainerDefinitions": [
@@ -165,7 +473,9 @@
             "TextId": "__SingleUse_S3YI",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "__SingleUse_KVAU"
+              "TextId": "__SingleUse_KVAU",
+              "UseBuffer": true,
+              "BufferSize": 15
             }
           },
           {
@@ -178,20 +488,24 @@
             "TextId": "__SingleUse_Z6P0",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "__SingleUse_TOBC"
+              "TextId": "__SingleUse_TOBC",
+              "UseBuffer": true,
+              "BufferSize": 32
             }
           },
           {
             "Type": "TextArea",
-            "Name": "fullname_1",
+            "Name": "time",
             "X": 9,
             "Y": 50,
-            "Width": 91,
+            "Width": 222,
             "Height": 15,
             "TextId": "__SingleUse_LWV7",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "__SingleUse_E0VX"
+              "TextId": "__SingleUse_E0VX",
+              "UseBuffer": true,
+              "BufferSize": 25
             }
           },
           {
@@ -204,7 +518,9 @@
             "TextId": "__SingleUse_N5WT",
             "TextRotation": "0",
             "Wildcard1": {
-              "TextId": "__SingleUse_DP9M"
+              "TextId": "__SingleUse_DP9M",
+              "UseBuffer": true,
+              "BufferSize": 10
             }
           },
           {

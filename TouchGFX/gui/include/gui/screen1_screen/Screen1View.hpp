@@ -11,6 +11,15 @@ public:
     virtual ~Screen1View() {}
     virtual void setupScreen();
     virtual void tearDownScreen();
+
+    void updateCardId(const char* cardId);
+    void updateName(const char* name);
+    void updateTime(const char* time);
+    void show_high_alcohol_dialog(int state);
+    void show_blow_analog(int state, const char* time);
+    void show_scan_card_dialog(int state);
+
+    void show_results(const char *raw_voltage, const char *alcohol_lv, const char *fine);
 protected:
 };
 

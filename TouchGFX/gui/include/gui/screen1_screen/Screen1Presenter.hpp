@@ -30,6 +30,20 @@ public:
 
     virtual void requestChangeToHistory() override;
 
+    virtual void notifyCardIdReceived(const char* cardId) override;
+
+    virtual void updateName(const char* name) override;
+
+    virtual void updateTime(const char* time) override;
+
+    virtual void show_high_alcohol_dialog(int state) override;
+
+    virtual void show_blow_analog(int state, const char* time) override;
+
+    virtual void show_scan_card_dialog(int state) override;
+
+    virtual void show_results(const char *raw_voltage, const char *alcohol_lv, const char *fine) override;
+
 private:
     Screen1Presenter();
 

@@ -3,6 +3,10 @@
 
 #include <gui_generated/containers/CustomContainer1Base.hpp>
 
+extern "C" {
+	#include "app_config.h"
+}
+
 class CustomContainer1 : public CustomContainer1Base
 {
 public:
@@ -10,6 +14,8 @@ public:
     virtual ~CustomContainer1() {}
 
     virtual void initialize();
+
+    void setData(const Log_t& log);
 protected:
 };
 

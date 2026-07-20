@@ -3,6 +3,9 @@
 
 class ModelListener;
 
+extern "C" {
+	#include "app_config.h"
+}
 class Model
 {
 public:
@@ -14,6 +17,10 @@ public:
     }
 
     void tick();
+
+    const Log_t* getLogs() const;
+    int getLogCount() const;
+
 protected:
     ModelListener* modelListener;
 };
