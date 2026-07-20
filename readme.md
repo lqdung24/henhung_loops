@@ -28,7 +28,7 @@ Các tính năng chính:
    - Hệ thống khóa an toàn: Lượt đo tiếp theo chỉ được phép thực hiện khi nồng độ cồn thô trong cảm biến đã giảm xuống dưới ngưỡng thấp (Reset cảm biến). Nếu chưa thỏa mãn, màn hình sẽ hiện cảnh báo.
 4. **Xem lịch sử đo**: Bấm và giữ nút B1 trong 3 giây để truy cập màn hình Lịch sử, cho phép xem 3 lượt đo gần nhất. Giữ B1 thêm lần nữa để quay trở lại màn hình chính.
 - Ảnh chụp minh họa:\
-  ![Ảnh minh họa](../ima_nhúng.jpeg)
+  ![Ảnh minh họa](illustration.jpeg)
 
 ## TÁC GIẢ
 
