@@ -28,7 +28,7 @@ Các tính năng chính:
    - Hệ thống khóa an toàn: Lượt đo tiếp theo chỉ được phép thực hiện khi nồng độ cồn thô trong cảm biến đã giảm xuống dưới ngưỡng thấp (Reset cảm biến). Nếu chưa thỏa mãn, màn hình sẽ hiện cảnh báo.
 4. **Xem lịch sử đo**: Bấm và giữ nút B1 trong 3 giây để truy cập màn hình Lịch sử, cho phép xem 3 lượt đo gần nhất. Giữ B1 thêm lần nữa để quay trở lại màn hình chính.
 - Ảnh chụp minh họa:\
-  ![Ảnh minh họa](https://soict.hust.edu.vn/wp-content/uploads/logo-soict-hust-1-1024x416.png)
+  ![Ảnh minh họa](../ima_nhúng.jpeg)
 
 ## TÁC GIẢ
 
@@ -90,7 +90,4 @@ Kết nối các linh kiện ngoại vi với STM32F429:
 
 ## KẾT QUẢ
 
-- [Chèn ảnh thiết bị ở chế độ chờ]
-- [Chèn ảnh khi quét thẻ thành công và hiển thị kết quả nồng độ cồn (kèm ml/100ml)]
-- [Chèn ảnh màn hình cảnh báo khi cảm biến MQ3 chưa khôi phục về trạng thái an toàn]
-- [Chèn ảnh màn hình Lịch sử chứa 3 lần đo gần nhất]
+[video demo](https://drive.google.com/file/d/1_nkLxwAs03nV3Nndpei6BabBq8Je-RW5/view?usp=sharing)
