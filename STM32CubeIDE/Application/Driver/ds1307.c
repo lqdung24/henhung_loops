@@ -1,5 +1,7 @@
 #include "ds1307.h"
 
+#include "stdio.h"
+
 static uint8_t DecToBCD(uint8_t val)
 {
     return ((val / 10) << 4) | (val % 10);
@@ -59,4 +61,54 @@ HAL_StatusTypeDef GetTime(I2C_HandleTypeDef *hi2c, Time *time)
     return HAL_OK;
 }
 
+void GetTime_string(I2C_HandleTypeDef *hi2c, char *out)
+{
+    Time time;
+
+    if (GetTime(hi2c, &time) != HAL_OK)
+    {
+        sprintf(out, "--:-- --/--/----");
+        return;
+    }
+
+    sprintf(out,
+            "%02d:%02d %02d/%02d/20%02d",
+            time.hour,
+            time.min,
+            time.day,
+            time.month,
+            time.year);
+}
+/**
+ * @brief Set the current date and time of the DS1307 RTC.
+ *
+ * @param year     Year (0-99), e.g. 26 for 2026.
+ * @param month    Month (1-12).
+ * @param day      Day of month (1-31).
+ * @param weekday  Day of week (1-7, 1 = Sunday).
+ * @param hour     Hour (0-23).
+ * @param min      Minute (0-59).
+ * @param sec      Second (0-59).
+ */
+void RTC_SetTime(uint8_t year,
+                 uint8_t month,
+                 uint8_t day,
+                 uint8_t weekday,
+                 uint8_t hour,
+                 uint8_t min,
+                 uint8_t sec, I2C_HandleTypeDef *hi2c)
+{
+    Time time =
+    {
+        .sec     = sec,
+        .min     = min,
+        .hour    = hour,
+        .weekday = weekday,
+        .day     = day,
+        .month   = month,
+        .year    = year
+    };
+
+    SetTime(hi2c, &time);
+}
 
